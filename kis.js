@@ -13,48 +13,6 @@ client.on(Events.InteractionCreate, async interaction => {
       ephemeral: true
     });
   }
-  if (interaction.customId.startsWith('rinzi')) {
-    const okane_has = await money.has(interaction.member.id);
-    const okane_get = await money.get(interaction.member.id);
-    const a = okane_get||0;
-    const pure_has = await pure.has(interaction.guild.id+interaction.member.id);
-    if (!okane_has) {
-      return interaction.reply({
-        embeds: [
-          {
-            title: '📛 エラー',
-            description: '口座が開設されていません。',
-            color: red
-          },
-        ],
-        ephemeral: true
-      });
-    }
-    if (pure_has) {
-      return interaction.reply({
-        embeds: [
-          {
-            title: '📛 エラー',
-            description: '既に給付金を受け取っています。',
-            color: red
-          },
-        ],
-        ephemeral: true
-      });
-    }
-    await pure.set(interaction.guild.id+interaction.member.id,true);
-    await money.set(interaction.member.id , a + 1000000);
-    interaction.reply({
-      embeds: [
-        {
-          title: '✅ 給付金の受け取り完了',
-          description: `給付金を取得しました。\n${a}+1000000=__${a+1000000}__`,
-          color: mido
-        },
-      ],
-      ephemeral: true
-    })
-  }
   if (interaction.customId.startsWith('role')) {
     const role = interaction.guild.roles.cache.get(role.id);
     if (!role) {
