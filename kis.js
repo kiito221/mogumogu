@@ -1,3 +1,5 @@
+const { role_aha, red, mido, } = require('./a.js');
+
 client.on(Events.InteractionCreate, async interaction => {
   if (!interaction.isButton()) return;
   if (!interaction.guild.members.me.permissions.has("Administrator")) {
@@ -14,7 +16,8 @@ client.on(Events.InteractionCreate, async interaction => {
     });
   }
   if (interaction.customId.startsWith('role')) {
-    const role = interaction.guild.roles.cache.get(role.id);
+    const role_get = await role_aha.get(interaction.guild.id+interaction.message.id);
+    const role = interaction.guild.roles.cache.get(role_get.id);
     if (!role) {
       return interaction.reply({
         embeds: [
